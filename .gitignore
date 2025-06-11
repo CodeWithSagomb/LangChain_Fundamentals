@@ -1,0 +1,29 @@
+# Environnement virtuel
+venv/
+.venv/
+env/
+.env/
+
+# Fichiers de cache et temporaires
+__pycache__/
+*.pyc
+*.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+
+# Fichiers spécifiques à l'OS
+.DS_Store # macOS
+Thumbs.db # Windows
+
+# Fichiers de configuration de VS Code (facultatif, selon préférence)
+.vscode/
+
+# Fichiers générés localement
+*.log
+*.sqlite3
+*.db
+
+# Fichiers de données volumineux ou sensibles non versionnés
+/data/
+/models/
+.env # Pour les variables d'environnement (clés API)
