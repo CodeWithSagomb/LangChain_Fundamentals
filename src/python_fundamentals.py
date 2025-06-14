@@ -212,3 +212,144 @@ set_a = {1, 2, 3}
 set_b = {3, 4, 5}
 print(f"Union de A et B : {set_a.union(set_b)}")
 print(f"Intersection de A et B : {set_a.intersection(set_b)}")
+
+
+###############################################################################################################
+
+
+# 2.1 Conditions (if, elif, else)
+print("\n--- 2.1 Conditions (if, elif, else) ---")
+
+age = 18
+if age < 18:
+    print("Vous êtes mineur.")
+elif age == 18:
+    print("Vous avez exactement 18 ans.")
+else:
+    print("Vous êtes majeur.")
+
+# Opérateurs logiques : and, or, not
+temperature_eau = 95
+if temperature_eau > 0 and temperature_eau < 100:
+    print("L'eau est liquide (entre 0 et 100 degrés Celsius).")
+elif temperature_eau >= 100:
+    print("L'eau est gazeuse ou bout.")
+else:
+    print("L'eau est solide (gelée).")
+
+# Exemple de condition simple pour la validation d'entrée
+user_input = "Hello"
+if user_input: # Une chaîne non vide est True
+    print(f"L'entrée utilisateur est : {user_input}")
+else:
+    print("L'entrée utilisateur est vide.")
+
+# Vérifier si un dictionnaire est vide
+parametres_llm = {"temperature": 0.7, "max_tokens": 100}
+# parametres_llm = {} # Décommenter pour tester un dictionnaire vide
+if parametres_llm:
+    print("Le dictionnaire de paramètres n'est pas vide.")
+else:
+    print("Le dictionnaire de paramètres est vide.")
+
+##########################################################################################
+
+# src/python_fundamentals.py (ajoutez à la suite)
+
+# 2.2 Boucles (for, while)
+print("\n--- 2.2 Boucles (for, while) ---")
+
+# Boucle for : pour itérer sur des collections (listes, tuples, chaînes, dictionnaires)
+fruits_disponibles = ["mangue", "ananas", "papaye"]
+print("Itération sur les fruits :")
+for fruit in fruits_disponibles:
+    print(f"J'aime manger des {fruit}.")
+
+# Boucle for avec range() : pour itérer un nombre fixe de fois
+print("Compter de 0 à 4 :")
+for i in range(5): # Génère une séquence de 0, 1, 2, 3, 4
+    print(i)
+
+print("Compter de 2 à 8 (pas de 2) :")
+for i in range(2, 9, 2): # Début, fin (exclue), pas
+    print(i)
+
+# Itération sur les éléments d'un dictionnaire (vu précédemment, mais important de le rappeler)
+llm_config = {"model": "falcon-7b", "temperature": 0.5, "max_new_tokens": 200}
+print("Paramètres du LLM :")
+for key, value in llm_config.items():
+    print(f"- {key}: {value}")
+
+# Boucle while : tant qu'une condition est vraie
+compteur = 0
+print("Compteur while :")
+while compteur < 3:
+    print(f"Compteur : {compteur}")
+    compteur += 1 # Incrémente le compteur
+
+# break et continue
+print("Exemple de break et continue :")
+for num in range(10):
+    if num == 3:
+        continue # Passe à l'itération suivante (saute l'affichage de 3)
+    if num == 7:
+        break # Arrête complètement la boucle
+    print(num)
+
+
+
+#########################################################################################################
+
+
+# 3. Fonctions
+print("\n--- 3. Fonctions ---")
+
+# Définition de fonction simple
+def saluer(nom):
+    """Affiche un message de salutation."""
+    print(f"Bonjour, {nom} !")
+
+saluer("Marie")
+saluer("Pierre")
+
+# Fonction avec valeur de retour
+def additionner(a, b):
+    """Retourne la somme de deux nombres."""
+    return a + b
+
+resultat_addition = additionner(10, 5)
+print(f"10 + 5 = {resultat_addition}")
+print(f"3 + 7 = {additionner(3, 7)}")
+
+# Arguments par défaut
+def afficher_info_llm(modele="GPT-3.5", temperature=0.7):
+    """Affiche les informations d'un modèle LLM avec des valeurs par défaut."""
+    print(f"Modèle : {modele}, Température : {temperature}")
+
+afficher_info_llm() # Utilise les valeurs par défaut
+afficher_info_llm("Llama2") # Surcharge le modèle, utilise la température par défaut
+afficher_info_llm("Mistral", 0.9) # Surcharge les deux
+
+# Arguments nommés (Keyword Arguments - kwargs)
+# Rend l'appel de fonction plus lisible
+afficher_info_llm(temperature=0.8, modele="Falcon")
+
+# *args et **kwargs (Arguments positionnels et nommés arbitraires)
+# Très utile pour des fonctions qui peuvent accepter un nombre variable d'arguments.
+# Vous le verrez souvent dans les APIs de bibliothèques comme LangChain ou Transformers.
+
+def traiter_parametres(*args, **kwargs):
+    """
+    Traite un nombre arbitraire d'arguments positionnels (*args)
+    et d'arguments nommés (**kwargs).
+    """
+    print("\nArguments positionnels (*args) :")
+    for arg in args:
+        print(f"- {arg}")
+
+    print("Arguments nommés (**kwargs) :")
+    for key, value in kwargs.items():
+        print(f"- {key}: {value}")
+
+traiter_parametres("doc1.txt", "doc2.pdf", modele="OpenAI", version="latest", streaming=True)
+traiter_parametres(1, 2, 3, nom="Alice", age=25, ville="New York")
