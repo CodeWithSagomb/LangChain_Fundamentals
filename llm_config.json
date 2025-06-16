@@ -1,0 +1,12 @@
+{
+    "llm_model": "Mistral-7B",
+    "parameters": {
+        "temperature": 0.8,
+        "max_tokens": 500
+    },
+    "tasks": [
+        "summarization",
+        "qa",
+        "generation"
+    ]
+}

@@ -353,3 +353,143 @@ def traiter_parametres(*args, **kwargs):
 
 traiter_parametres("doc1.txt", "doc2.pdf", modele="OpenAI", version="latest", streaming=True)
 traiter_parametres(1, 2, 3, nom="Alice", age=25, ville="New York")
+
+
+##############################################################################################################
+
+
+
+# 4. Classes et Objets (Bases de la POO)
+print("\n--- 4. Classes et Objets (Bases de la POO) ---")
+
+# Définition d'une classe simple
+class Document:
+    """
+    Représente un document textuel avec un contenu et des métadonnées.
+    Ceci est un concept très proche de ce que fait LangChain avec ses "Documents".
+    """
+    def __init__(self, content, metadata=None):
+        """
+        Le constructeur de la classe. Il est appelé lors de la création d'une nouvelle instance.
+        'self' fait référence à l'instance de l'objet en cours de création.
+        """
+        self.page_content = content  # Attribut pour le contenu du document
+        self.metadata = metadata if metadata is not None else {} # Attribut pour les métadonnées
+
+    def get_summary(self, max_length=50):
+        """
+        Simule la génération d'un résumé du document.
+        (En réalité, un LLM ferait cela !)
+        """
+        return self.page_content[:max_length] + "..." if len(self.page_content) > max_length else self.page_content
+
+    def add_metadata(self, key, value):
+        """Ajoute une métadonnée au document."""
+        self.metadata[key] = value
+
+    def display_info(self):
+        """Affiche les informations du document."""
+        print(f"Contenu : '{self.page_content}'")
+        print(f"Métadonnées : {self.metadata}")
+
+# Création d'instances (objets) de la classe Document
+doc1 = Document(
+    "L'intelligence artificielle est un domaine en pleine expansion.",
+    {"source": "Wikipedia", "date": "2023-01-15"}
+)
+doc2 = Document("LangChain facilite la création d'applications avec les LLM.")
+
+print("\n--- Infos sur doc1 ---")
+doc1.display_info()
+print(f"Résumé de doc1 : {doc1.get_summary(20)}")
+
+print("\n--- Infos sur doc2 ---")
+doc2.display_info()
+doc2.add_metadata("auteur", "AI Expert")
+doc2.display_info()
+
+
+########################################################################################################
+
+
+# 5 Compréhensions de Listes (List Comprehensions) 
+print("\n--- 5. Compréhensions de Listes (List Comprehensions) ---")
+
+#  Créer une liste de carrés
+nombres = [1, 2, 3, 4, 5]
+carres = [n * n for n in nombres]
+print(f"Carrés : {carres}")
+
+
+#  Filtrer des éléments avec une condition
+pairs = [n for n in nombres if n % 2 == 0]
+print(f"Nombres pairs : {pairs}")
+
+#  Transformer des chaînes
+mots_bruts = ["  chat  ", " CHIEN ", "souris  "]
+mots_propres = [mot.strip().lower() for mot in mots_bruts]
+print(f"Mots propres : {mots_propres}")
+
+# Compréhension de dictionnaire (Dictionary Comprehension) - similaire
+llm_inputs = ["prompt", "context", "history"]
+default_values = {key: "N/A" for key in llm_inputs}
+print(f"Valeurs par défaut pour LLM inputs : {default_values}")
+
+
+
+###########################################################################################################
+
+
+
+
+import json 
+
+# 6. Manipulation de Fichiers et JSON 
+print("\n--- 6. Manipulation de Fichiers et JSON ---")
+
+# 6.1 Fichiers Texte 
+
+# Écrire dans un fichier
+fichier_texte_path = "output.txt"
+with open(fichier_texte_path, "w", encoding="utf-8") as f:
+    f.write("Ceci est la première ligne.\n")
+    f.write("Ceci est la deuxième ligne de notre fichier texte.\n")
+print(f"Fichier '{fichier_texte_path}' créé et écrit.")
+
+# Lire un fichier
+with open(fichier_texte_path, "r", encoding="utf-8") as f:
+    contenu = f.read()
+print(f"\nContenu de '{fichier_texte_path}':\n{contenu}")
+
+# Lire ligne par ligne
+print(f"Contenu de '{fichier_texte_path}' ligne par ligne:")
+with open(fichier_texte_path, "r", encoding="utf-8") as f:
+    for ligne in f:
+        print(f"- {ligne.strip()}") # .strip() pour enlever les retours à la ligne
+
+# 6.2 Fichiers JSON
+
+# Données Python (dictionnaire)
+data_pour_json = {
+    "llm_model": "Mistral-7B",
+    "parameters": {
+        "temperature": 0.8,
+        "max_tokens": 500
+    },
+    "tasks": ["summarization", "qa", "generation"]
+}
+
+json_file_path = "llm_config.json"
+
+# Écrire des données Python dans un fichier JSON
+with open(json_file_path, "w", encoding="utf-8") as f:
+    json.dump(data_pour_json, f, indent=4) # indent=4 pour une meilleure lisibilité
+print(f"\nDonnées écrites dans '{json_file_path}'.")
+
+# Lire des données JSON depuis un fichier
+with open(json_file_path, "r", encoding="utf-8") as f:
+    loaded_data = json.load(f)
+print(f"\nDonnées lues depuis '{json_file_path}':")
+print(loaded_data)
+print(f"Type de 'loaded_data' : {type(loaded_data)}")
+print(f"Modèle LLM lu : {loaded_data['llm_model']}")
